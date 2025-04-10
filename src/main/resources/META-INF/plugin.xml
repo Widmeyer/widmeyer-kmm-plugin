@@ -1,0 +1,22 @@
+<idea-plugin>
+    <id>com.widmeyertemplate</id>
+    <name>Widmeyer Template</name>
+    <description>A plugin to generate custom modules for Android Studio.</description>
+    <vendor email="mailcom.99+widmeyer@mail.ru" url="https://a-kovtun.tilda.ws/">Kovtun A.</vendor>
+
+
+    <depends>org.jetbrains.android</depends>
+    <depends>com.intellij.modules.platform</depends>
+    <depends>org.jetbrains.kotlin</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <moduleType
+                id="FEATURE_MODULE_TYPE"
+                implementationClass="com.widmeyertemplate.feature.FeatureModuleType"/>
+        <moduleBuilder
+                builderClass="com.widmeyertemplate.feature.FeatureModuleBuilder"/>
+    </extensions>
+
+
+
+</idea-plugin>
