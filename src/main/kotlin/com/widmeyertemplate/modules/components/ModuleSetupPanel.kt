@@ -1,9 +1,9 @@
-package com.widmeyertemplate.feature
+package com.widmeyertemplate.modules.components
 
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.util.ui.JBUI
-import com.widmeyertemplate.model.TypeModel
+import com.widmeyertemplate.modules.model.TypeModel
 import org.jdesktop.swingx.VerticalLayout
 import java.awt.Dimension
 import java.io.File

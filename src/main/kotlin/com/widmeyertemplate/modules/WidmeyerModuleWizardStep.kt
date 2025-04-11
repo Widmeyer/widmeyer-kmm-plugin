@@ -1,14 +1,12 @@
 import com.intellij.ide.util.projectWizard.ModuleWizardStep
-import com.widmeyertemplate.Constants
-import com.widmeyertemplate.feature.ModuleSetupPanel
-import com.widmeyertemplate.model.TypeModel
+import com.widmeyertemplate.modules.components.ModuleSetupPanel
+import com.widmeyertemplate.modules.model.TypeModel
 import org.jdesktop.swingx.VerticalLayout
-import java.awt.Component
 import java.awt.Font
 import javax.swing.*
 
 
-class FeatureModuleWizardStep() : ModuleWizardStep() {
+class WidmeyerModuleWizardStep() : ModuleWizardStep() {
     private val panel: JPanel
     private val featurePanel = ModuleSetupPanel(TypeModel.FEATURE)
     private val sharedPanel = ModuleSetupPanel(TypeModel.SHARED)

@@ -1,4 +1,4 @@
-package com.widmeyertemplate.feature
+package com.widmeyertemplate.modules
 
 import com.intellij.icons.AllIcons
 import com.intellij.ide.util.projectWizard.ModuleWizardStep
@@ -7,18 +7,18 @@ import com.intellij.openapi.module.ModuleType
 import com.intellij.openapi.module.ModuleTypeManager
 import com.intellij.openapi.roots.ui.configuration.ModulesProvider
 
-class FeatureModuleType : ModuleType<FeatureModuleBuilder>(ID) {
-    override fun createModuleBuilder() = FeatureModuleBuilder()
+class WidmeyerModuleType : ModuleType<WidmeyerModuleBuilder>(ID) {
+    override fun createModuleBuilder() = WidmeyerModuleBuilder()
 
     override fun getName() = "Widmeyer Template"
 
-    override fun getDescription() = "Create Android Model"
+    override fun getDescription() = "Create Model"
 
     override fun getNodeIcon(b: Boolean) = AllIcons.Icons.Ide.NextStep
 
     override fun createWizardSteps(
         wizardContext: WizardContext,
-        moduleBuilder: FeatureModuleBuilder,
+        moduleBuilder: WidmeyerModuleBuilder,
         modulesProvider: ModulesProvider
     ): Array<ModuleWizardStep> = super.createWizardSteps(wizardContext, moduleBuilder, modulesProvider)
 
@@ -26,7 +26,7 @@ class FeatureModuleType : ModuleType<FeatureModuleBuilder>(ID) {
         private const val ID = "FEATURE_MODULE_TYPE"
 
         @JvmStatic
-        fun getInstance() = ModuleTypeManager.getInstance().findByID(ID) as FeatureModuleType
+        fun getInstance() = ModuleTypeManager.getInstance().findByID(ID) as WidmeyerModuleType
     }
 
 }
