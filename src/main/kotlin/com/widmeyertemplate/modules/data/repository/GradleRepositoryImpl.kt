@@ -24,7 +24,7 @@ class GradleRepositoryImpl(
 
     override fun addModuleToSettingsGradle(project: Project, moduleData: ModuleData) {
         val file = ProjectFiles.SETTINGS
-        if (moduleData.isAddFeature) {
+        moduleData.featurePath?.let {
             val line = "include(\":androidApp:features:screen:$${moduleData.moduleName}\")"
             val featureRegex = """^\s*include\(":androidApp:features.*?"\)"""
             fileManagerRepository.findLineAndAdd(
@@ -37,7 +37,7 @@ class GradleRepositoryImpl(
             )
         }
 
-        if (moduleData.isAddShared) {
+        moduleData.sharedPath?.let {
             val line = "include(\":androidApp:features:screen:$${moduleData.moduleName}\")"
             val featureRegex = """^\s*include\(":shared*?"\)"""
             fileManagerRepository.findLineAndAdd(

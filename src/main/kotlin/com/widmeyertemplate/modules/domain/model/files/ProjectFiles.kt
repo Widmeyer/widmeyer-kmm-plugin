@@ -2,19 +2,14 @@ package com.widmeyertemplate.modules.domain.model.files;
 
 import com.widmeyertemplate.modules.domain.model.FileActionType
 
-enum class ProjectFiles(
-    val fileName: String,
-    val templatePath: String?,
-    val beforePath: String? = null,
-    val afterName: String? = null,
-    val extension: String,
-    val fileAction: FileActionType = FileActionType.NONE
-) {
-    SETTINGS(
-        fileName = "settings.gradle",
-        extension = "kts",
-        templatePath = null
-    );
-
-    fun getFullName(): String = "$fileName.$extension"
+enum class ProjectFiles : File {
+    SETTINGS {
+        override val fileName = "settings.gradle"
+        override val extension = "kts"
+        override val fileAction = FileActionType.COPY
+        override val templatePath = null
+        override val beforePath = null
+        override val afterName = null
+        override val isLower: Boolean = false
+    };
 }

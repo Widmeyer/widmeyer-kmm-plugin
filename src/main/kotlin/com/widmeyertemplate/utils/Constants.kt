@@ -6,6 +6,9 @@ internal object Constants {
     private val bundle: ResourceBundle = ResourceBundle.getBundle("messages", Locale.getDefault())
 
     object Common {
+        val IN_DEVELOPMENT: String get() = bundle.getString("inDevelopment")
+
+        val SUCCESS: String get() = bundle.getString("success")
         val ERROR: String get() = bundle.getString("error.title")
     }
 

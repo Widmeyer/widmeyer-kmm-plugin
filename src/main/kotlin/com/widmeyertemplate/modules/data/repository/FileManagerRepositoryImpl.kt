@@ -5,6 +5,7 @@ import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.project.Project
 import com.widmeyertemplate.modules.domain.repository.FileManagerRepository
 import org.jetbrains.kotlin.idea.core.util.toVirtualFile
+import java.io.File
 import java.io.InputStream
 import java.nio.file.Files
 import java.nio.file.Path
@@ -95,5 +96,11 @@ class FileManagerRepositoryImpl : FileManagerRepository {
         Files.createDirectories(path.parent)
 
         Files.copy(byteArray, path, StandardCopyOption.REPLACE_EXISTING)
+    }
+
+    override fun createDir(path: String) {
+        val moduleDir = File(path)
+
+        if (!moduleDir.exists()) moduleDir.mkdirs()
     }
 }

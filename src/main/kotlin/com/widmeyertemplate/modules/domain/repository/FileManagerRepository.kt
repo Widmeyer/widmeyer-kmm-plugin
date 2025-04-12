@@ -21,4 +21,6 @@ interface FileManagerRepository {
         moduleName: String,
         featureName: String
     )
+
+    fun createDir(path: String)
 }
