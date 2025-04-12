@@ -1,0 +1,15 @@
+package com.${PROJECT_NAME}.features.${MODULE_NAME}.di
+
+import com.${PROJECT_NAME}.features.${MODULE_NAME}.data.${FEATURE_NAME}ScreenRepositoryImpl
+import com.${PROJECT_NAME}.features.${MODULE_NAME}.domain.${FEATURE_NAME}ScreenRepository
+import com.${PROJECT_NAME}.features.${MODULE_NAME}.presentation.${FEATURE_NAME}ViewModel
+import org.koin.core.module.dsl.factoryOf
+import org.koin.core.module.dsl.singleOf
+import org.koin.core.module.Module
+import org.koin.dsl.bind
+import org.koin.dsl.module
+
+val ${MODULE_NAME}Module: Module = module {
+    singleOf(::${FEATURE_NAME}ScreenRepositoryImpl) bind ${FEATURE_NAME}ScreenRepository::class
+    singleOf(::${FEATURE_NAME}ViewModel)
+}

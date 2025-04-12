@@ -1,0 +1,6 @@
+package com.${PROJECT_NAME}.features.${MODULE_NAME}.data
+
+import com.${PROJECT_NAME}.features.${MODULE_NAME}.domain.${FEATURE_NAME}ScreenRepository
+
+class ${FEATURE_NAME}ScreenRepositoryImpl: ${FEATURE_NAME}ScreenRepository {
+}

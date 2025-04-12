@@ -12,9 +12,9 @@
     <extensions defaultExtensionNs="com.intellij">
         <moduleType
                 id="FEATURE_MODULE_TYPE"
-                implementationClass="com.widmeyertemplate.modules.WidmeyerModuleType"/>
+                implementationClass="com.widmeyertemplate.modules.presentation.WidmeyerModuleType"/>
         <moduleBuilder
-                builderClass="com.widmeyertemplate.modules.WidmeyerModuleBuilder"/>
+                builderClass="com.widmeyertemplate.modules.presentation.WidmeyerModuleBuilder"/>
     </extensions>
 
 

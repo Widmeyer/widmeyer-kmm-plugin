@@ -1,0 +1,44 @@
+package com.${PROJECT_NAME}.screen.${MODULE_NAME}.components
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Text
+import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Preview
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.${PROJECT_NAME}.core.data.utils.globalApplicationContext
+import com.${PROJECT_NAME}.ui.theme.B
+import com.${PROJECT_NAME}.ui.theme.MainTheme
+
+@Composable
+internal fun ${FEATURE_NAME}ScreenContent() {
+    Scaffold { padding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+                .background(B.colors.white),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+        ) {
+            Text(text = "Widmeyer Template")
+        }
+    }
+}
+
+@Composable
+@Preview
+internal fun ${FEATURE_NAME}ScreenContent_Preview() {
+    globalApplicationContext = LocalContext.current
+
+    MainTheme {
+        ${FEATURE_NAME}ScreenContent()
+    }
+}

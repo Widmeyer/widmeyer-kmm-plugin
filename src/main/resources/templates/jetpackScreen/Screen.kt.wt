@@ -1,0 +1,21 @@
+package com.${PROJECT_NAME}.screen.${MODULE_NAME}
+
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import com.${PROJECT_NAME}.features.${MODULE_NAME}.presentation.${FEATURE_NAME}ViewModel
+import com.${PROJECT_NAME}.root.presentation.RootViewModel
+import org.koin.androidx.compose.koinViewModel
+import com.${PROJECT_NAME}.screen.${MODULE_NAME}.components.${FEATURE_NAME}ScreenContent
+
+@Serialiazble
+@Composable
+fun ${FEATURE_NAME}Screen(
+    viewModel: ${FEATURE_NAME}ViewModel = koinViewModel(),
+    rootViewModel: RootViewModel = koinViewModel(),
+) {
+    val stateScreen by viewModel.stateScreen.state.collectAsState()
+
+    ${FEATURE_NAME}ScreenContent()
+}

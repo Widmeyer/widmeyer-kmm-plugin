@@ -1,0 +1,4 @@
+package com.${PROJECT_NAME}.features.${MODULE_NAME}.domain
+
+interface ${FEATURE_NAME}ScreenRepository {
+}

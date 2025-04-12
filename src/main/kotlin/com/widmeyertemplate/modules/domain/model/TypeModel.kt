@@ -1,4 +1,4 @@
-package com.widmeyertemplate.modules.model
+package com.widmeyertemplate.modules.domain.model
 
 enum class TypeModel {
     FEATURE,

@@ -1,0 +1,8 @@
+package com.${PROJECT_NAME}.features.${MODULE_NAME}.presentation
+
+import com.${PROJECT_NAME}.base.features.StateFlow
+import com.${PROJECT_NAME}.base.features.ViewModel
+
+class ${FEATURE_NAME}ViewModel(): ViewModel() {
+
+}
