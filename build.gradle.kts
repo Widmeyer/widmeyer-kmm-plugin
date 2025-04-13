@@ -8,7 +8,7 @@ fun properties(key: String) = providers.gradleProperty(key)
 fun environment(key: String) = providers.environmentVariable(key)
 
 group = "com.widmeyertemplate"
-version = "1.0-SNAPSHOT"
+version = "1.0"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -27,6 +27,13 @@ intellij {
     ))
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions.jvmTarget = "17"
+tasks {
+    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+        kotlinOptions.jvmTarget = "17"
+    }
+
+    patchPluginXml {
+        sinceBuild.set(properties("pluginSinceBuild").get())
+        untilBuild.set(properties("pluginUntilBuild").get())
+    }
 }
