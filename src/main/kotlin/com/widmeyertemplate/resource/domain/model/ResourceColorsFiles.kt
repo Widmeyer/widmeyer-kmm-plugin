@@ -9,7 +9,7 @@ enum class ResourceColorsFiles: File {
         override val templatePath = ""
         override val extension = "xml"
         override val fileAction = FileActionType.PACKAGE
-        override val beforePath = "shared/resources/src/commonMain/moko-resources"
+        override val beforePath = "shared/resources/src/commonMain/moko-resources/colors"
         override val afterName = null
         override val isLower: Boolean = false
     },
@@ -18,7 +18,7 @@ enum class ResourceColorsFiles: File {
         override val templatePath = ""
         override val extension = "kt"
         override val fileAction = FileActionType.PACKAGE
-        override val beforePath = uiPath
+        override val beforePath = "$uiPath/main/kotlin"
         override val afterName = null
         override val isLower: Boolean = false
     },
@@ -27,7 +27,7 @@ enum class ResourceColorsFiles: File {
         override val templatePath = ""
         override val extension = "xml"
         override val fileAction = FileActionType.PACKAGE
-        override val beforePath = uiPath
+        override val beforePath = "$uiPath/res/values"
         override val afterName = null
         override val isLower: Boolean = false
     },
@@ -41,5 +41,5 @@ enum class ResourceColorsFiles: File {
         override val isLower: Boolean = false
     };
 
-    protected val uiPath = "androidApp/ui/src/main"
+    protected val uiPath = "androidApp/ui/src"
 }
