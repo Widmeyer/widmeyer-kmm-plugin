@@ -1,8 +1,6 @@
 package com.widmeyertemplate.modules.data.repository
 
 import com.intellij.openapi.command.WriteCommandAction
-import com.intellij.openapi.externalSystem.service.execution.ProgressExecutionMode
-import com.intellij.openapi.externalSystem.util.ExternalSystemUtil
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.project.Project
 import com.widmeyertemplate.modules.domain.model.ModuleData
@@ -10,23 +8,16 @@ import com.widmeyertemplate.modules.domain.model.files.ProjectFiles
 import com.widmeyertemplate.modules.domain.repository.FileManagerRepository
 import com.widmeyertemplate.modules.domain.repository.GradleRepository
 import com.widmeyertemplate.utils.Constants
+import com.widmeyertemplate.utils.GradleUtils
 import org.jetbrains.kotlin.idea.core.util.toVirtualFile
-import org.jetbrains.plugins.gradle.util.GradleConstants
-import java.nio.file.Path
 import java.nio.file.Files
+import java.nio.file.Path
 
 class GradleRepositoryImpl(
     private val fileManagerRepository: FileManagerRepository
 ) : GradleRepository {
-    override fun sync(project: Project, projectPath: String) {
-        ExternalSystemUtil.refreshProject(
-            project,
-            GradleConstants.SYSTEM_ID,
-            projectPath,
-            false,
-            ProgressExecutionMode.MODAL_SYNC,
-        )
-    }
+    override fun sync(project: Project, projectPath: String) =
+        GradleUtils.sync(project = project, projectPath = projectPath)
 
     override fun addModuleToSettingsGradle(project: Project, moduleData: ModuleData) {
         val file = ProjectFiles.SETTINGS

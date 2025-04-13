@@ -21,13 +21,14 @@ class ModuleRepositoryImpl : ModuleRepository {
     private val fileManagerRepository: FileManagerRepository = FileManagerRepositoryImpl()
     private val gradleRepository: GradleRepository = GradleRepositoryImpl(fileManagerRepository)
 
-    override fun create(project: Project, moduleData: ModuleData): Flow<Result<String, String>> = flow {
+    override fun create(project: Project, moduleData: ModuleData): Flow<Result<Boolean, String>> = flow {
         try {
             moduleData.featurePath?.let { createModuleFeature(project = project, moduleData = moduleData) }
             moduleData.sharedPath?.let { createModuleShared(project = project, moduleData = moduleData) }
             insertLibrarySettings(project = project, moduleData = moduleData)
 
             gradleRepository.sync(project, projectPath = moduleData.rootPath)
+            emit(Result.Success(true))
         } catch (e: Throwable) {
             e.printStackTrace()
             emit(Result.Failure(Constants.Modules.MODULE_ERROR_TITLE))

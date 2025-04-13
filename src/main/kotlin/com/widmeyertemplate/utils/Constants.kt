@@ -39,5 +39,6 @@ internal object Constants {
     }
     object Resources {
         val ACTION_BUTTON: String get() = bundle.getString("resources.button")
+        val NOT_FOUND: String get() = bundle.getString("resources.notFound")
     }
 }

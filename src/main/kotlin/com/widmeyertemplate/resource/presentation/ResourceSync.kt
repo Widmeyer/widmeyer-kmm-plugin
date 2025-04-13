@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import com.widmeyertemplate.utils.Result
 
 class ResourceSync : AnAction(Constants.Resources.ACTION_BUTTON) {
-    private val repository: ResourceRepository = ResourceRepositoryImpl()
+    private var repository: ResourceRepository? = null
 
     override fun actionPerformed(anActionEvent: AnActionEvent) {
         observeDialog(anActionEvent)
@@ -19,11 +19,13 @@ class ResourceSync : AnAction(Constants.Resources.ACTION_BUTTON) {
 
     private fun observeDialog(anActionEvent: AnActionEvent) {
         anActionEvent.project?.let { project ->
+            repository = ResourceRepositoryImpl(project)
+
             CoroutineScope(Dispatchers.Main).launch {
-                repository.update(project = project).collect {
+                repository?.update()?.collect {
                     when (it) {
                         is Result.Success -> Messages.showMessageDialog(
-                            it.data,
+                            "",
                             Constants.Common.SUCCESS,
                             Messages.getInformationIcon()
                         )

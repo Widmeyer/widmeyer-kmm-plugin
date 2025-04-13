@@ -6,5 +6,5 @@ import com.widmeyertemplate.utils.Result
 import kotlinx.coroutines.flow.Flow
 
 interface ModuleRepository {
-    fun create(project: Project, moduleData: ModuleData): Flow<Result<String, String>>
+    fun create(project: Project, moduleData: ModuleData): Flow<Result<Boolean, String>>
 }

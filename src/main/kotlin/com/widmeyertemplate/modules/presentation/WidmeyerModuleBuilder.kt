@@ -53,7 +53,7 @@ class WidmeyerModuleBuilder : EmptyModuleBuilder() {
                     moduleRepository.create(project = project, moduleData = it.getData()).collect {
                         when (it) {
                             is Result.Success -> Messages.showMessageDialog(
-                                it.data,
+                                "",
                                 Constants.Common.SUCCESS,
                                 Messages.getInformationIcon()
                             )
