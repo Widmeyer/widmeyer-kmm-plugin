@@ -18,6 +18,9 @@ jobs:
           distribution: 'temurin'
           java-version: ${{ vars.JDK_VERSION }}
 
+      - name: Resolve dependencies
+        run: ./gradlew buildPlugin --refresh-dependencies --stacktrace
+
       - name: Set up Gradle Wrapper
         run: |
           ./gradlew wrapper --gradle-version ${{ vars.GRADLEW_VERSION }} 
