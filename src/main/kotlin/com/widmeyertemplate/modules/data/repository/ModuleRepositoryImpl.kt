@@ -1,12 +1,12 @@
 package com.widmeyertemplate.modules.data.repository
 
 import com.intellij.openapi.project.Project
-import com.widmeyertemplate.modules.domain.model.FileActionType
+import com.widmeyertemplate.utils.file.FileActionType
 import com.widmeyertemplate.modules.domain.model.ModuleData
-import com.widmeyertemplate.modules.domain.model.Result
-import com.widmeyertemplate.modules.domain.model.TypeModel
+import com.widmeyertemplate.utils.Result
+import com.widmeyertemplate.utils.TypeModel
 import com.widmeyertemplate.modules.domain.model.files.FeatureFiles
-import com.widmeyertemplate.modules.domain.model.files.File
+import com.widmeyertemplate.utils.file.File
 import com.widmeyertemplate.modules.domain.model.files.ProjectFiles
 import com.widmeyertemplate.modules.domain.model.files.SharedFiles
 import com.widmeyertemplate.modules.domain.repository.FileManagerRepository

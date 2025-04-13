@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import org.jetbrains.kotlin.tools.projectWizard.plugins.Plugins
 import org.jetbrains.kotlin.tools.projectWizard.wizard.IdeWizard
 import org.jetbrains.kotlin.tools.projectWizard.wizard.service.IdeaServices
-import com.widmeyertemplate.modules.domain.model.Result
+import com.widmeyertemplate.utils.Result
 
 class WidmeyerModuleBuilder : EmptyModuleBuilder() {
     private var moduleRepository: ModuleRepository = ModuleRepositoryImpl()

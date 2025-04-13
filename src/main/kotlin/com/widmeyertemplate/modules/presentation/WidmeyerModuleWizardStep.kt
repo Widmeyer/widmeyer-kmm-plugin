@@ -4,7 +4,7 @@ import com.intellij.ide.util.projectWizard.WizardContext
 import com.intellij.ide.wizard.AbstractWizard
 import com.intellij.openapi.options.ConfigurationException
 import com.widmeyertemplate.modules.domain.model.ModuleData
-import com.widmeyertemplate.modules.domain.model.TypeModel
+import com.widmeyertemplate.utils.TypeModel
 import com.widmeyertemplate.modules.presentation.components.ModuleSetupPanel
 import com.widmeyertemplate.utils.Constants
 import org.jdesktop.swingx.VerticalLayout

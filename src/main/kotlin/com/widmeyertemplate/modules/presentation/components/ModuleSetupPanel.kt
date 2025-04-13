@@ -3,7 +3,7 @@ package com.widmeyertemplate.modules.presentation.components
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.widmeyertemplate.utils.Constants
-import com.widmeyertemplate.modules.domain.model.TypeModel
+import com.widmeyertemplate.utils.TypeModel
 import org.jdesktop.swingx.VerticalLayout
 import java.awt.Dimension
 import javax.swing.*

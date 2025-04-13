@@ -1,6 +1,7 @@
 package com.widmeyertemplate.modules.domain.model.files;
 
-import com.widmeyertemplate.modules.domain.model.FileActionType
+import com.widmeyertemplate.utils.file.File
+import com.widmeyertemplate.utils.file.FileActionType
 
 enum class SharedFiles : File {
     BUILD_GRADLE {

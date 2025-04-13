@@ -37,4 +37,7 @@ internal object Constants {
         val VALIDATION_EMPTY_MODULE_NAME: String get() = bundle.getString("module.validation.emptyModuleName")
         val VALIDATION_EMPTY_FEATURE_NAME: String get() = bundle.getString("module.validation.emptyFeatureName")
     }
+    object Resources {
+        val ACTION_BUTTON: String get() = bundle.getString("resources.button")
+    }
 }

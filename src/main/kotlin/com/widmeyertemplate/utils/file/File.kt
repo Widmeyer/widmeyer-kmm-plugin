@@ -1,6 +1,4 @@
-package com.widmeyertemplate.modules.domain.model.files
-
-import com.widmeyertemplate.modules.domain.model.FileActionType
+package com.widmeyertemplate.utils.file
 
 interface File {
     val fileName: String

@@ -1,9 +1,8 @@
 <idea-plugin>
     <id>com.widmeyertemplate</id>
     <name>Widmeyer Template</name>
-    <description>A plugin to generate custom modules for Android Studio.</description>
+    <description>A plugin for Kotlin Multiplatform App with package "Widmeyer Template"</description>
     <vendor email="mailcom.99+widmeyer@mail.ru" url="https://a-kovtun.tilda.ws/">Kovtun A.</vendor>
-
 
     <depends>org.jetbrains.android</depends>
     <depends>com.intellij.modules.platform</depends>
@@ -17,6 +16,18 @@
                 builderClass="com.widmeyertemplate.modules.presentation.WidmeyerModuleBuilder"/>
     </extensions>
 
+    <actions>
+        <group
+                id="updateResource"
+                 popup="true"
+                text="Widmeyer">
+            <add-to-group group-id="ToolsMenu" anchor="first"/>
 
-
+            <action id="Update"
+                    class="com.widmeyertemplate.resource.presentation.ResourceSync"
+                    text="Update">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt shift P"/>
+            </action>
+        </group>
+    </actions>
 </idea-plugin>
