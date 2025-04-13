@@ -1,13 +1,19 @@
 package com.widmeyertemplate.modules.data.repository
 
+import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.externalSystem.service.execution.ProgressExecutionMode
 import com.intellij.openapi.externalSystem.util.ExternalSystemUtil
+import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.project.Project
 import com.widmeyertemplate.modules.domain.model.ModuleData
 import com.widmeyertemplate.modules.domain.model.files.ProjectFiles
 import com.widmeyertemplate.modules.domain.repository.FileManagerRepository
 import com.widmeyertemplate.modules.domain.repository.GradleRepository
+import com.widmeyertemplate.utils.Constants
+import org.jetbrains.kotlin.idea.core.util.toVirtualFile
 import org.jetbrains.plugins.gradle.util.GradleConstants
+import java.nio.file.Path
+import java.nio.file.Files
 
 class GradleRepositoryImpl(
     private val fileManagerRepository: FileManagerRepository
@@ -51,35 +57,42 @@ class GradleRepositoryImpl(
         }
     }
 
-    override fun updateBuildGradleAndroid(project: Project, moduleData: ModuleData) {
-        /*val fileType = Files.MODULE_BUILD_GRADLE
-        val buildGradleFile = Path.of(androidAppPath, fileType.getFullName())
+    override fun updateBuildGradle(
+        project: Project,
+        path: String,
+        fileName: String,
+        regexes: List<String>,
+        newLine: String,
+        moduleData: ModuleData
+    ) {
+        val buildGradleFile = Path.of(path, fileName)
 
-        if (!java.nio.file.Files.exists(buildGradleFile))
-            throw IllegalStateException("$androidAppPath file not found in the project root")
+        if (!Files.exists(buildGradleFile))
+            throw IllegalStateException(Constants.Modules.MODULE_ERROR_TITLE)
 
 
         val virtualFile = buildGradleFile.toFile().toVirtualFile()
-            ?: throw IllegalStateException("Не найдено ни одной зависимости projects.feature.* в build.gradle.kts")
+            ?: throw IllegalStateException(Constants.Modules.MODULE_ERROR_TITLE)
 
         FileDocumentManager.getInstance().getDocument(virtualFile)?.let { document ->
             val text = document.text
-            val featureRegex = Regex("""^\s*implementation\(projects\.feature\..*?\)""", RegexOption.MULTILINE)
-            val fallbackRegex = Regex("""^\s*implementation\(.*?\)""", RegexOption.MULTILINE)
-            val dependencyRegex = Regex("""dependencies \{""", RegexOption.MULTILINE)
+            var match: MatchResult? = null
+            regexes.forEach {
+                val regex = Regex(it, RegexOption.MULTILINE)
+                val founded = regex.findAll(text).lastOrNull()
+                if (founded != null) {
+                    match = founded
+                    return@forEach
+                }
+            }
 
-            val match = featureRegex.findAll(text).lastOrNull()
-                ?: fallbackRegex.findAll(text).lastOrNull()
-                ?: dependencyRegex.findAll(text).lastOrNull()
-                ?: throw IllegalStateException("Не найдено ни одной зависимости в Android build.gradle.kts")
+            if (match == null) throw IllegalStateException(Constants.Modules.MODULE_ERROR_TITLE)
 
-            val insertOffset = match.range.last + 1
-            val newLine = "\n\timplementation(projects.feature.$moduleName)"
+            val insertOffset = match!!.range.last + 1
 
             WriteCommandAction.runWriteCommandAction(project) {
                 document.insertString(insertOffset, newLine)
             }
         }
-         */
     }
 }

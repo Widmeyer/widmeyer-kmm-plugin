@@ -98,6 +98,63 @@ class FileManagerRepositoryImpl : FileManagerRepository {
         Files.copy(byteArray, path, StandardCopyOption.REPLACE_EXISTING)
     }
 
+    override fun insertLine(project: Project, filePath: Path, regex: String, isInsertComma: Boolean, importString: String) {
+        val virtualFile = filePath.toFile().toVirtualFile() ?: return
+        val document = FileDocumentManager.getInstance().getDocument(virtualFile) ?: return
+        val text = document.text
+
+        val modulesRegex = Regex(regex)
+        val modulesMatch = modulesRegex.find(text)
+
+        if (modulesMatch != null) {
+            val modulesBlock = modulesMatch.groupValues[0]
+            if (!modulesBlock.contains(importString.trim())) {
+                var isAddedComma = false
+                val closingBracketIndex = modulesMatch.range.last
+                val beforeClosing = text.substring(0, closingBracketIndex)
+                val lastNonEmptyLine = beforeClosing.lines().lastOrNull { it.trim().isNotEmpty() }
+                if (isInsertComma && lastNonEmptyLine != null && !lastNonEmptyLine.trim().endsWith(",")) {
+                    WriteCommandAction.runWriteCommandAction(project) {
+                        val lastIndex = text.indexOf(lastNonEmptyLine)
+                        isAddedComma = true
+                        document.insertString(lastIndex + lastNonEmptyLine.length, ",")
+                    }
+                }
+
+                WriteCommandAction.runWriteCommandAction(project) {
+                    var indexToInsertNewModule = modulesMatch.range.last
+                    if (isAddedComma) indexToInsertNewModule += 1
+
+                    document.insertString(indexToInsertNewModule, importString)
+                }
+            }
+        }
+    }
+
+    override fun insertImportLine(project: Project, filePath: Path, importLine: String) {
+        val virtualFile = filePath.toFile().toVirtualFile() ?: return
+        val document = FileDocumentManager.getInstance().getDocument(virtualFile) ?: return
+        val text = document.text
+
+        val importRegex = Regex("""^import .*$""", RegexOption.MULTILINE)
+        val importMatches = importRegex.findAll(text).toList()
+
+        if (importMatches.isNotEmpty()) {
+            val lastImport = importMatches.last()
+            val insertImportOffset = lastImport.range.last
+
+            val newImportLine = "\n$importLine"
+
+            WriteCommandAction.runWriteCommandAction(project) {
+                document.insertString(insertImportOffset + 1, newImportLine)
+            }
+        } else {
+            WriteCommandAction.runWriteCommandAction(project) {
+                document.insertString(0, importLine)
+            }
+        }
+    }
+
     override fun createDir(path: String) {
         val moduleDir = File(path)
 

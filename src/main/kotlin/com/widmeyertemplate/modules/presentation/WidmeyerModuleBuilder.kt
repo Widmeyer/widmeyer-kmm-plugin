@@ -35,7 +35,18 @@ class WidmeyerModuleBuilder : EmptyModuleBuilder() {
 
     override fun modifySettingsStep(settingsStep: SettingsStep): ModuleWizardStep? {
         clickFinishButton()
+        return null
+    }
 
+    override fun getCustomOptionsStep(context: WizardContext?, parentDisposable: Disposable): ModuleWizardStep? {
+        wizardContext = context
+        step = WidmeyerModuleWizardStep(wizard, context!!)
+        return step
+    }
+
+    private fun clickFinishButton() {
+        if (finishButtonClicked) return
+        finishButtonClicked = true
         wizardContext?.project?.let { project ->
             step?.let {
                 CoroutineScope(Dispatchers.Main).launch {
@@ -59,18 +70,6 @@ class WidmeyerModuleBuilder : EmptyModuleBuilder() {
             }
         }
 
-        return null
-    }
-
-    override fun getCustomOptionsStep(context: WizardContext?, parentDisposable: Disposable): ModuleWizardStep? {
-        wizardContext = context
-        step = WidmeyerModuleWizardStep(wizard, context!!)
-        return step
-    }
-
-    private fun clickFinishButton() {
-        if (finishButtonClicked) return
-        finishButtonClicked = true
         wizardContext?.getNextButton()?.doClick()
     }
 }

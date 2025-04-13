@@ -12,6 +12,15 @@ enum class FeatureFiles(): File {
         override val afterName = null
         override val isLower: Boolean = false
     },
+    BUILD_GRADLE_APP {
+        override val fileName = "build.gradle"
+        override val extension = "kts"
+        override val templatePath = ""
+        override val fileAction = FileActionType.NONE
+        override val beforePath = startPathRoot
+        override val afterName = null
+        override val isLower: Boolean = false
+    },
     GITIGNORE {
         override val fileName = ".gitignore"
         override val templatePath = "$startPathTemplate/gitignore.wt"
@@ -19,6 +28,15 @@ enum class FeatureFiles(): File {
         override val fileAction = FileActionType.COPY
         override val beforePath = null
         override val afterName = null
+        override val isLower: Boolean = false
+    },
+    NAV_HOST {
+        override val fileName = "AppNavHost"
+        override val extension = "kt"
+        override val templatePath = ""
+        override val beforePath = "$startPathRoot/src/main/kotlin/com"
+        override val afterName = "root"
+        override val fileAction = FileActionType.NONE
         override val isLower: Boolean = false
     },
     SCREEN {
@@ -41,4 +59,5 @@ enum class FeatureFiles(): File {
     };
 
     protected val startPathTemplate = "templates/jetpackScreen"
+    protected val startPathRoot = "androidApp/features/root"
 }
