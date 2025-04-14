@@ -13,6 +13,7 @@ internal object Constants {
     }
 
     object Modules {
+        val DEFAULT_NAME = "widmeyer"
         val MODULE: String get() = bundle.getString("module")
 
         val CREATE_FEATURE_MODULE: String get() = bundle.getString("module.createFeature")

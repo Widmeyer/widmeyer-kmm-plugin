@@ -1,32 +1,35 @@
 package com.widmeyertemplate.modules.presentation
 
-import com.intellij.ide.util.projectWizard.WizardContext
-import com.intellij.ide.wizard.AbstractWizard
-import com.intellij.openapi.options.ConfigurationException
+import com.android.tools.idea.npw.module.ConfigureModuleStep
+import com.android.tools.idea.npw.toWizardFormFactor
+import com.intellij.openapi.project.Project
 import com.widmeyertemplate.modules.domain.model.ModuleData
-import com.widmeyertemplate.utils.TypeModel
 import com.widmeyertemplate.modules.presentation.components.ModuleSetupPanel
 import com.widmeyertemplate.utils.Constants
+import com.widmeyertemplate.utils.TypeModel
 import org.jdesktop.swingx.VerticalLayout
-import org.jetbrains.kotlin.tools.projectWizard.core.entity.ValidationResult
-import org.jetbrains.kotlin.tools.projectWizard.phases.GenerationPhase
-import org.jetbrains.kotlin.tools.projectWizard.wizard.IdeWizard
-import org.jetbrains.kotlin.tools.projectWizard.wizard.KotlinNewProjectWizardUIBundle
-import org.jetbrains.kotlin.tools.projectWizard.wizard.WizardStep
 import java.awt.Dimension
 import java.awt.Font
 import javax.swing.*
 
-
-class WidmeyerModuleWizardStep(
-    wizard: IdeWizard,
-    private val wizardContext: WizardContext,
-) : WizardStep(wizard, GenerationPhase.SECOND_STEP) {
+class WidmeyerModuleAndroidStep(
+    basePackage: String,
+    minSdkLevel: Int,
+    title: String,
+    private val model: AndroidModuleModel,
+    private val onSuccess: (Project) -> Unit,
+) : ConfigureModuleStep<AndroidModuleModel>(
+    model,
+    model.formFactor.get().toWizardFormFactor(),
+    minSdkLevel = minSdkLevel,
+    basePackage = basePackage,
+    title = title
+) {
     private val panel: JPanel
     private val featurePanel =
-        ModuleSetupPanel(basePath = wizardContext.project?.basePath.orEmpty(), typeModel = TypeModel.FEATURE)
+        ModuleSetupPanel(basePath = model.project.basePath.orEmpty(), typeModel = TypeModel.FEATURE)
     private val sharedPanel =
-        ModuleSetupPanel(basePath = wizardContext.project?.basePath.orEmpty(), typeModel = TypeModel.SHARED)
+        ModuleSetupPanel(basePath = model.project.basePath.orEmpty(), typeModel = TypeModel.SHARED)
     private val projectNameField: JTextField
     private val moduleNameField: JTextField
     private val featureNameField: JTextField
@@ -48,6 +51,15 @@ class WidmeyerModuleWizardStep(
         panel.add(featurePanel)
         panel.add(sharedPanel)
     }
+    override fun createMainPanel(): JPanel = panel
+    override fun onProceeding() {
+        try {
+            validateOrThrow()
+            onSuccess(model.project)
+        } catch (ex: IllegalArgumentException) {
+            JOptionPane.showMessageDialog(panel, ex.message, Constants.Common.ERROR, JOptionPane.ERROR_MESSAGE)
+        }
+    }
 
     private fun getField(label: String): JTextField {
         panel.add(JLabel(label))
@@ -59,28 +71,6 @@ class WidmeyerModuleWizardStep(
         panel.add(textField)
         return textField
     }
-
-    override fun getComponent() = panel
-
-    override fun updateDataModel() {
-        try {
-            validateOrThrow()
-        } catch (ex: IllegalArgumentException) {
-            JOptionPane.showMessageDialog(panel, ex.message, Constants.Common.ERROR, JOptionPane.ERROR_MESSAGE)
-        }
-    }
-
-    override fun validate(): Boolean {
-        return try {
-            validateOrThrow()
-            true
-        } catch (ex: IllegalArgumentException) {
-            handleErrors(error = ValidationResult.ValidationError(ex.message.orEmpty()))
-        }
-    }
-
-    override fun handleErrors(error: ValidationResult.ValidationError) =
-        throw ConfigurationException(error.messages.firstOrNull(), Constants.Modules.MODULE_ERROR_TITLE)
 
     private fun validateOrThrow() {
         val isEnabledFeature = featurePanel.isEnabled
@@ -110,27 +100,14 @@ class WidmeyerModuleWizardStep(
         }
     }
 
-    override fun getPreferredFocusedComponent(): JComponent? {
-        wizardContext.getNextButton()?.text = KotlinNewProjectWizardUIBundle.message("finish.button.text")
-        return super.getPreferredFocusedComponent()
-    }
 
     fun getData(): ModuleData =
         ModuleData(
-            rootPath = wizardContext.project?.basePath.orEmpty(),
+            rootPath = model.project.basePath.orEmpty(),
             featurePath = featurePanel.getModulePath(),
             sharedPath = sharedPanel.getModulePath(),
             projectName = projectNameField.text,
             moduleName = moduleNameField.text,
             featureName = featureNameField.text
         )
-}
-
-
-internal fun WizardContext.getNextButton() = try {
-    AbstractWizard::class.java.getDeclaredMethod("getNextButton")
-        .also { it.isAccessible = true }
-        .invoke(getUserData(AbstractWizard.KEY)) as? JButton
-} catch (_: Throwable) {
-    null
 }

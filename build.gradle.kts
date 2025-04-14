@@ -1,39 +1,38 @@
 plugins {
     id("java")
-    id("org.jetbrains.kotlin.jvm") version "2.0.0"
-    id("org.jetbrains.intellij") version "1.17.4"
+    id("org.jetbrains.kotlin.jvm") version "1.9.25"
+    id("org.jetbrains.intellij.platform") version "2.3.0"
 }
-
-fun properties(key: String) = providers.gradleProperty(key)
-fun environment(key: String) = providers.environmentVariable(key)
 
 group = "com.widmeyertemplate"
-version = "1.0"
+version = "1.0.0"
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-}
 repositories {
     mavenCentral()
+    intellijPlatform {
+        defaultRepositories()
+    }
 }
 
-intellij {
-    version.set(properties("platformVersion"))
-    type.set(properties("platformType"))
-
-    plugins.set(listOf(
-        "org.jetbrains.android"
-    ))
+dependencies {
+    intellijPlatform {
+        androidStudio("2024.2.2.13")
+        bundledPlugin("org.jetbrains.android")
+    }
 }
 
 tasks {
+    // Set the JVM compatibility versions
+    withType<JavaCompile> {
+        sourceCompatibility = "21"
+        targetCompatibility = "21"
+    }
     withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.jvmTarget = "17"
+        kotlinOptions.jvmTarget = "21"
     }
 
     patchPluginXml {
-        sinceBuild.set(properties("pluginSinceBuild").get())
-        untilBuild.set(properties("pluginUntilBuild").get())
+        sinceBuild.set("242")
+        untilBuild.set("243.*")
     }
 }

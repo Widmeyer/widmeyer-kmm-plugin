@@ -4,18 +4,18 @@
     <description>A plugin for Kotlin Multiplatform App with package "Widmeyer Template"</description>
     <vendor email="mailcom.99+widmeyer@mail.ru" url="https://a-kovtun.tilda.ws/">Kovtun A.</vendor>
 
-    <depends>org.jetbrains.android</depends>
+
     <depends>com.intellij.modules.platform</depends>
     <depends>org.jetbrains.kotlin</depends>
+    <depends>org.jetbrains.android</depends>
+    <depends>com.intellij.modules.androidstudio</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <moduleType
-                id="FEATURE_MODULE_TYPE"
-                implementationClass="com.widmeyertemplate.modules.presentation.WidmeyerModuleType"/>
-        <moduleBuilder
-                builderClass="com.widmeyertemplate.modules.presentation.WidmeyerModuleBuilder"/>
     </extensions>
-
+    <extensions defaultExtensionNs="com.android">
+        <moduleDescriptionProvider
+                implementation="com.widmeyertemplate.modules.presentation.AndroidModuleDescriptionProvider"/>
+    </extensions>
     <actions>
         <group
                 id="updateResource"
