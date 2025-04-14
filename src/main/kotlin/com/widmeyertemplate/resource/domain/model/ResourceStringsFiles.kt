@@ -24,5 +24,5 @@ enum class ResourceStringsFiles: File {
     };
 
     protected val commonPath = "shared/resources/src/commonMain/moko-resources"
-    protected val uiPath = "androidApp/ui/src"
+    protected val uiPath = "androidApp/ui/src/main"
 }

@@ -18,7 +18,7 @@ enum class ResourceColorsFiles: File {
         override val templatePath = ""
         override val extension = "kt"
         override val fileAction = FileActionType.PACKAGE
-        override val beforePath = "$uiPath/main/kotlin"
+        override val beforePath = uiPath
         override val afterName = null
         override val isLower: Boolean = false
     },
@@ -41,5 +41,5 @@ enum class ResourceColorsFiles: File {
         override val isLower: Boolean = false
     };
 
-    protected val uiPath = "androidApp/ui/src"
+    protected val uiPath = "androidApp/ui/src/main"
 }
