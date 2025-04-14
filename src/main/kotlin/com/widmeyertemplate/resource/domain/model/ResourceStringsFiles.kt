@@ -9,7 +9,7 @@ enum class ResourceStringsFiles: File {
         override val templatePath = ""
         override val extension = "xml"
         override val fileAction = FileActionType.PACKAGE
-        override val beforePath = "$commonPath"
+        override val beforePath = commonPath
         override val afterName = null
         override val isLower: Boolean = false
     },
@@ -24,5 +24,5 @@ enum class ResourceStringsFiles: File {
     };
 
     protected val commonPath = "shared/resources/src/commonMain/moko-resources"
-    protected val uiPath = "androidApp/ui/src/main"
+    protected val uiPath = "androidApp/ui/src"
 }

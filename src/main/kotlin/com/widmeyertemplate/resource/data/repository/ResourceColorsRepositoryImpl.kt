@@ -1,7 +1,6 @@
 package com.widmeyertemplate.resource.data.repository
 
 import com.widmeyertemplate.resource.domain.model.ResourceColorsFiles
-import com.widmeyertemplate.resource.domain.model.ResourceStringsFiles
 import com.widmeyertemplate.resource.domain.repository.ResourceColorsRepository
 
 class ResourceColorsRepositoryImpl(private val rootPath: String): ResourceColorsRepository {
@@ -31,12 +30,6 @@ class ResourceColorsRepositoryImpl(private val rootPath: String): ResourceColors
     }
 
     private fun insertIOS() {
-        val file = ResourceStringsFiles.ANDROID_XML
-        val dirPath = file.beforePath
-        val fileName = file.getFullName()
-
-        fileRepository.replaceXml(sourcePath = pathBase, outputPath = "$rootPath/$dirPath/$fileName")
-
         val fileColors = ResourceColorsFiles.COLORS_IOS
         fileRepository.findFileAndReplaceColors(
             sourcePath = pathBase,
