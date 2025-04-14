@@ -1,4 +1,4 @@
-package com.widmeyertemplate.modules.domain.model.files;
+package com.widmeyertemplate.modules.domain.model.files
 
 import com.widmeyertemplate.utils.file.File
 import com.widmeyertemplate.utils.file.FileActionType

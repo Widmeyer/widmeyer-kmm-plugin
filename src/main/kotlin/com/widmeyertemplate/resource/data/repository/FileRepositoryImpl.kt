@@ -2,6 +2,8 @@ package com.widmeyertemplate.resource.data.repository
 
 import com.widmeyertemplate.resource.domain.repository.FileRepository
 import com.widmeyertemplate.utils.Constants
+import org.apache.commons.io.FileUtils
+import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.StandardCopyOption
@@ -9,12 +11,16 @@ import javax.xml.parsers.DocumentBuilderFactory
 import kotlin.io.path.pathString
 
 class FileRepositoryImpl : FileRepository {
+    override fun deleteDir(buildSrc: String) {
+        val file = File(buildSrc)
+        FileUtils.deleteDirectory(file)
+    }
+
     override fun replaceXml(sourcePath: String, outputPath: String) {
         val source = Path.of(sourcePath)
         val target = Path.of(outputPath)
 
         if (!Files.exists(source)) throw IllegalStateException("${Constants.Resources.NOT_FOUND}: $sourcePath")
-
 
         Files.createDirectories(target.parent)
 
